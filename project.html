@@ -1,47 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Projeto • Lírio Branco Cultural</title>
+  <title>Lírio Branco Cultural • Projeto</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <header class="header">
- <div class="brand">
-  <img src="logo.png" alt="Lírio Branco Cultural" style="height:40px; vertical-align:middle; margin-right:8px;">
-  Lírio Branco Cultural • Projeto
-</div>
-
-<div class="brand">
-  <img src="logo.png" alt="Lírio Branco Cultural" style="height:40px; vertical-align:middle; margin-right:8px;">
-  Lírio Branco Cultural • Projeto
-</div>
-
-
+    <div class="brand">
+      <img src="logo.png" alt="Lírio Branco Cultural" style="height:40px; vertical-align:middle; margin-right:8px;">
+      Lírio Branco Cultural • Projeto
+    </div>
     <nav>
       <a href="./projects.html">Projetos</a>
-      <a href="#" id="logoutLink">Sair</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="card">
-      <div class="navtabs">
-        <a href="#geral" class="active" data-tab>Geral</a>
-        <a href="#atividades" data-tab>Atividades</a>
-        <a href="#cronograma" data-tab>Cronograma</a>
-        <a href="#locais" data-tab>Locais</a>
-        <a href="#financeiro" id="financeTab" class="hidden" data-tab>Financeiro (admin)</a>
+      <h1 id="projectName">Nome do Projeto</h1>
+      <p id="projectClient"></p>
+      <p id="projectDescription"></p>
+    </div>
+
+    <div class="card">
+      <h2>Abas</h2>
+      <div class="tabs">
+        <button class="tab active" data-tab="general">Geral</button>
+        <button class="tab" data-tab="activities">Atividades</button>
+        <button class="tab" data-tab="schedule">Cronograma</button>
+        <button class="tab" data-tab="locations">Locais</button>
+        <button class="tab admin-only" data-tab="finance">Financeiro (admin)</button>
       </div>
-      <div id="tabContent"></div>
+      <div id="tabContent">
+        <!-- Conteúdo das abas -->
+      </div>
     </div>
   </main>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore-compat.js"></script>
   <script src="./firebase-init.js"></script>
-  <script src="./project.js"></script>
+  <script src="./app-auth.js"></script>
+  <script src="./app-project.js"></script>
 </body>
 </html>
