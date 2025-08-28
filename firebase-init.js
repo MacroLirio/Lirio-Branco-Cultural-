@@ -1,13 +1,13 @@
 // Configuração do Firebase
 // 👉 Substitua cada valor abaixo pelo que o Firebase gerar para você
 const firebaseConfig = {
-  apiKey: "COLE_AQUI_SUA_API_KEY",
-  authDomain: "COLE_AQUI_SEU_AUTH_DOMAIN",
-  projectId: "COLE_AQUI_SEU_PROJECT_ID",
-  storageBucket: "COLE_AQUI_SEU_STORAGE_BUCKET",
+  apiKey: "AIzaSyBAEo4byMMQCgfn0SMSbbRV48EfwYM3d_4",
+  authDomain:"sistema-lirio-branco.firebaseapp.com",
+  projectId: "sistema-lirio-branco",
+  storageBucket: "sistema-lirio-branco.firebasestorage.app",
   messagingSenderId: "COLE_AQUI_SEU_SENDER_ID",
-  appId: "COLE_AQUI_SEU_APP_ID",
-  measurementId: "COLE_AQUI_SEU_MEASUREMENT_ID"
+  appId: "1:137857061244:web:704b4792acb662a53a54f9",
+  measurementId: "G-M972BJ7DRT"
 };
 
 // Inicializa o Firebase
