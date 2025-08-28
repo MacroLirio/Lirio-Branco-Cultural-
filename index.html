@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Lírio Branco Cultural</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+        }
+        
+        .system-container {
+            display: none;
+            background: #f7fafc;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .btn-logout {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .main-content {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px 0;
+        }
+        
+        .nav-item {
+            padding: 15px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .nav-item:hover {
+            background: #f7fafc;
+            border-left-color: #667eea;
+            color: #667eea;
+        }
+        
+        .nav-item.active {
+            background: #edf2f7;
+            border-left-color: #667eea;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .btn-warning {
+            background: #ed8936;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #f56565;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-flow {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .flow-stage {
+            min-width: 250px;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .flow-stage.active {
+            border-color: #667eea;
+            background: #eef2ff;
+        }
+        
+        .stage-title {
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .project-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .project-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .project-date {
+            font-size: 12px;
+            color: #718096;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #718096;
+            font-weight: 500;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .status-pending {
+            background: #fed7d7;
+            color: #c53030;
+        }
+        
+        .status-paid {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .form-full {
+            grid-column: 1 / -1;
+        }
+        
+        select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .project-flow {
+                flex-direction: column;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-box">
+            <div class="logo">🎭 Lírio Branco Cultural</div>
+            <div class="subtitle">Sistema de Gestão de Projetos</div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+            
+            <!-- Instruções de Login -->
+            <div style="margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; text-align: left; font-size: 14px;">
+                <strong>👥 Usuários Cadastrados:</strong><br>
+                • admin / admin123<br>
+                • user1 / senha123<br>
+                • user2 / senha123<br>
+                • user3 / senha123<br>
+                • user4 / senha123<br>
+                • user5 / senha123
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistema Principal -->
+    <div class="system-container" id="systemScreen">
+        <header class="header">
+            <h1>🎭 Lírio Branco Cultural</h1>
+            <div class="user-info">
+                <span id="currentUser"></span>
+                <button class="btn-logout" onclick="logout()">Sair</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <nav class="sidebar">
+                <div class="nav-item active" onclick="showPage('dashboard')">
+                    📊 Dashboard
+                </div>
+                <div class="nav-item" onclick="showPage('projects')">
+                    🎯 Fluxo de Projetos
+                </div>
+                <div class="nav-item" onclick="showPage('costs')">
+                    💰 Controle de Custos
+                </div>
+                <div class="nav-item" onclick="showPage('schedule')">
+                    📅 Cronograma
+                </div>
+                <div class="nav-item" onclick="showPage('financial')">
+                    💼 Gestão Financeira
+                </div>
+            </nav>
+
+            <main class="content">
+                <!-- Dashboard -->
+                <div id="dashboard" class="page active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalProjects">0</div>
+                            <div class="stat-label">Total de Projetos</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="activeProjects">0</div>
+                            <div class="stat-label">Projetos Ativos</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalRevenue">R$ 0</div>
+                            <div class="stat-label">Receita Total</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="pendingCosts">R$ 0</div>
+                            <div class="stat-label">Custos Pendentes</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Visão Geral dos Projetos</h2>
+                        </div>
+                        <div class="project-flow">
+                            <div class="flow-stage">
+                                <div class="stage-title">📝 Inscrição</div>
+                                <div id="inscricao-projects"></div>
+                            </div>
+                            <div class="flow-stage">
+                                <div class="stage-title">🔍 Captação/Aprovação</div>
+                                <div id="captacao-projects"></div>
+                            </div>
+                            <div class="flow-stage">
+                                <div class="stage-title">⚙️ Execução</div>
+                                <div id="execucao-projects"></div>
+                            </div>
+                            <div class="flow-stage">
+                                <div class="stage-title">📋 Prestação de Contas</div>
+                                <div id="prestacao-projects"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fluxo de Projetos -->
+                <div id="projects" class="page">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Gestão de Projetos</h2>
+                            <button class="btn btn-primary" onclick="openModal('projectModal')">
+                                ➕ Novo Projeto
+                            </button>
+                        </div>
+                        
+                        <div class="project-flow">
+                            <div class="flow-stage" id="stage-inscricao">
+                                <div class="stage-title">📝 Inscrição</div>
+                                <div id="inscricao-list"></div>
+                            </div>
+                            <div class="flow-stage" id="stage-captacao">
+                                <div class="stage-title">🔍 Captação/Aprovação</div>
+                                <div id="captacao-list"></div>
+                            </div>
+                            <div class="flow-stage" id="stage-execucao">
+                                <div class="stage-title">⚙️ Execução</div>
+                                <div id="execucao-list"></div>
+                            </div>
+                            <div class="flow-stage" id="stage-prestacao">
+                                <div class="stage-title">📋 Prestação de Contas</div>
+                                <div id="prestacao-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controle de Custos -->
+                <div id="costs" class="page">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Controle de Custos</h2>
+                            <button class="btn btn-primary" onclick="openModal('costModal')">
+                                ➕ Nova Despesa
+                            </button>
+                        </div>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Projeto</th>
+                                    <th>Descrição</th>
+                                    <th>Valor</th>
+                                    <th>Status</th>
+                                    <th>Nota Fiscal</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="costsTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Cronograma -->
+                <div id="schedule" class="page">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Cronograma de Atividades</h2>
+                            <button class="btn btn-primary" onclick="openModal('scheduleModal')">
+                                ➕ Nova Atividade
+                            </button>
+                        </div>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Projeto</th>
+                                    <th>Atividade</th>
+                                    <th>Responsável</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduleTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Gestão Financeira -->
+                <div id="financial" class="page">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Gestão Financeira - Lírio Branco</h2>
+                            <button class="btn btn-primary" onclick="openModal('revenueModal')">
+                                ➕ Nova Receita
+                            </button>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" id="monthlyRevenue">R$ 0</div>
+                                <div class="stat-label">Receita do Mês</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="yearlyRevenue">R$ 0</div>
+                                <div class="stat-label">Receita Anual</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="pendingRevenue">R$ 0</div>
+                                <div class="stat-label">A Receber</div>
+                            </div>
+                        </div>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Cliente/Projeto</th>
+                                    <th>Serviço</th>
+                                    <th>Valor</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="revenueTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modais -->
+    <!-- Modal Novo Projeto -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="card-header">
+                <h2 class="card-title">Novo Projeto</h2>
+                <button onclick="closeModal('projectModal')" style="background: none; border: none; font-size: 20px; cursor: pointer;">✖️</button>
+            </div>
+            
+            <form id="projectForm">
+                <div class="form-row">
+                    <div>
+                        <label>Nome do Projeto</label>
+                        <input type="text" id="projectName" required>
+                    </div>
+                    <div>
+                        <label>Cliente/Proponente</label>
+                        <input type="text" id="projectClient" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div>
+                        <label>Valor do Projeto</label>
+                        <input type="number" id="projectValue" step="0.01" required>
+                    </div>
+                    <div>
+                        <label>Data de Início</label>
+                        <input type="date" id="projectStartDate" required>
+                    </div>
+                </div>
+                
+                <div class="form-full">
+                    <label>Descrição</label>
+                    <textarea id="projectDescription" rows="4"></textarea>
+                </div>
+                
+                <div style="text-align: right; margin-top: 20px;">
+                    <button type="button" onclick="closeModal('projectModal')" class="btn" style="background: #e2e8f0; color: #4a5568; margin-right: 10px;">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Projeto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nova Despesa -->
+    <div id="costModal" class="modal">
+        <div class="modal-content">
+            <div class="card-header">
+                <h2 class="card-title">Nova Despesa</h2>
+                <button onclick="closeModal('costModal')" style="background: none; border: none; font-size: 20px; cursor: pointer;">✖️</button>
+            </div>
+            
+            <form id="costForm">
+                <div class="form-row">
+                    <div>
+                        <label>Projeto</label>
+                        <select id="costProject" required>
+                            <option value="">Selecione um projeto</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Valor</label>
+                        <input type="number" id="costValue" step="0.01" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div>
+                        <label>Status</label>
+                        <select id="costStatus" required>
+                            <option value="pendente">Pendente</option>
+                            <option value="pago">Pago</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Nota Fiscal</label>
+                        <input type="text" id="costInvoice">
+                    </div>
+                </div>
+                
+                <div class="form-full">
+                    <label>Descrição</label>
+                    <textarea id="costDescription" rows="3" required></textarea>
+                </div>
+                
+                <div style="text-align: right; margin-top: 20px;">
+                    <button type="button" onclick="closeModal('costModal')" class="btn" style="background: #e2e8f0; color: #4a5568; margin-right: 10px;">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Despesa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nova Atividade -->
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <div class="card-header">
+                <h2 class="card-title">Nova Atividade</h2>
+                <button onclick="closeModal('scheduleModal')" style="background: none; border: none; font-size: 20px; cursor: pointer;">✖️</button>
+            </div>
+            
+            <form id="scheduleForm">
+                <div class="form-row">
+                    <div>
+                        <label>Data</label>
+                        <input type="date" id="activityDate" required>
+                    </div>
+                    <div>
+                        <label>Projeto</label>
+                        <select id="activityProject" required>
+                            <option value="">Selecione um projeto</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div>
+                        <label>Responsável</label>
+                        <input type="text" id="activityResponsible" required>
+                    </div>
+                    <div>
+                        <label>Status</label>
+                        <select id="activityStatus" required>
+                            <option value="pendente">Pendente</option>
+                            <option value="em-andamento">Em Andamento</option>
+                            <option value="concluido">Concluído</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-full">
+                    <label>Atividade</label>
+                    <textarea id="activityDescription" rows="3" required></textarea>
+                </div>
+                
+                <div style="text-align: right; margin-top: 20px;">
+                    <button type="button" onclick="closeModal('scheduleModal')" class="btn" style="background: #e2e8f0; color: #4a5568; margin-right: 10px;">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Atividade</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nova Receita -->
+    <div id="revenueModal" class="modal">
+        <div class="modal-content">
+            <div class="card-header">
+                <h2 class="card-title">Nova Receita</h2>
+                <button onclick="closeModal('revenueModal')" style="background: none; border: none; font-size: 20px; cursor: pointer;">✖️</button>
+            </div>
+            
+            <form id="revenueForm">
+                <div class="form-row">
+                    <div>
+                        <label>Data</label>
+                        <input type="date" id="revenueDate" required>
+                    </div>
+                    <div>
+                        <label>Valor</label>
+                        <input type="number" id="revenueValue" step="0.01" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div>
+                        <label>Cliente/Projeto</label>
+                        <input type="text" id="revenueClient" required>
+                    </div>
+                    <div>
+                        <label>Status</label>
+                        <select id="revenueStatus" required>
+                            <option value="a-receber">A Receber</option>
+                            <option value="recebido">Recebido</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-full">
+                    <label>Serviço Prestado</label>
+                    <textarea id="revenueService" rows="3" required></textarea>
+                </div>
+                
+                <div style="text-align: right; margin-top: 20px;">
+                    <button type="button" onclick="closeModal('revenueModal')" class="btn" style="background: #e2e8f0; color: #4a5568; margin-right: 10px;">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Receita</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de Autenticação
+        const users = {
+            'admin': 'admin123',
+            'user1': 'senha123',
+            'user2': 'senha123',
+            'user3': 'senha123',
+            'user4': 'senha123',
+            'user5': 'senha123'
+        };
+
+        // Dados do sistema (armazenamento em memória durante a sessão)
+        let projects = [
+            {
+                id: 1,
+                name: 'Festival de Música Popular',
+                client: 'Secretaria de Cultura',
+                value: 50000,
+                status: 'inscricao',
+                startDate: '2025-09-01',
+                description: 'Festival com 3 dias de apresentações musicais',
+                createdAt: new Date().toISOString()
+            },
+            {
+                id: 2,
+                name: 'Workshop de Teatro',
+                client: 'Escola Municipal',
+                value: 15000,
+                status: 'captacao',
+                startDate: '2025-09-15',
+                description: 'Workshop de 2 semanas para estudantes',
+                createdAt: new Date().toISOString()
+            }
+        ];
+        
+        let costs = [
+            {
+                id: 1,
+                projectId: 1,
+                description: 'Equipamentos de som',
+                value: 8000,
+                status: 'pendente',
+                invoice: '',
+                createdAt: new Date().toISOString()
+            },
+            {
+                id: 2,
+                projectId: 1,
+                description: 'Cachê dos artistas',
+                value: 25000,
+                status: 'pago',
+                invoice: 'NF-2025001',
+                createdAt: new Date().toISOString()
+            }
+        ];
+        
+        let schedule = [
+            {
+                id: 1,
+                projectId: 1,
+                date: '2025-09-15',
+                activity: 'Reunião inicial com cliente',
+                responsible: 'Admin',
+                status: 'pendente',
+                createdAt: new Date().toISOString()
+            },
+            {
+                id: 2,
+                projectId: 2,
+                date: '2025-09-10',
+                activity: 'Preparação do material didático',
+                responsible: 'User1',
+                status: 'em-andamento',
+                createdAt: new Date().toISOString()
+            }
+        ];
+        
+        let revenues = [
+            {
+                id: 1,
+                date: '2025-08-20',
+                client: 'Teatro Municipal',
+                service: 'Produção evento cultural',
+                value: 15000,
+                status: 'recebido',
+                createdAt: new Date().toISOString()
+            },
+            {
+                id: 2,
+                date: '2025-08-25',
+                client: 'Prefeitura Local',
+                service: 'Consultoria em projetos culturais',
+                value: 8000,
+                status: 'a-receber',
+                createdAt: new Date().toISOString()
+            }
+        ];
+
+        let currentUser = null;
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (users[username] && users[username] === password) {
+                currentUser = username;
+                document.getElementById('currentUser').textContent = username;
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('systemScreen').style.display = 'block';
+                loadDashboard();
+            } else {
+                alert('Usuário ou senha incorretos!');
+            }
+        });
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('systemScreen').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // Navegação
+        function showPage(pageId) {
+            // Remove active das nav-items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Adiciona active ao item clicado
+            event.target.classList.add('active');
+            
+            // Esconde todas as páginas
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostra a página selecionada
+            document.getElementById(pageId).classList.add('active');
+            
+            // Carrega dados específicos da página
+            switch(pageId) {
+                case 'dashboard':
+                    loadDashboard();
+                    break;
+                case 'projects':
+                    loadProjects();
+                    break;
+                case 'costs':
+                    loadCosts();
+                    break;
+                case 'schedule':
+                    loadSchedule();
+                    break;
+                case 'financial':
+                    loadFinancial();
+                    break;
+            }
+        }
+
+        // Dashboard
+        function loadDashboard() {
+            // Estatísticas
+            document.getElementById('totalProjects').textContent = projects.length;
+            document.getElementById('activeProjects').textContent = projects.filter(p => p.status !== 'prestacao').length;
+            
+            const totalRevenue = revenues.filter(r => r.status === 'recebido').reduce((sum, r) => sum + r.value, 0);
+            document.getElementById('totalRevenue').textContent = 'R$ ' + totalRevenue.toLocaleString('pt-BR');
+            
+            const pendingCosts = costs.filter(c => c.status === 'pendente').reduce((sum, c) => sum + c.value, 0);
+            document.getElementById('pendingCosts').textContent = 'R$ ' + pendingCosts.toLocaleString('pt-BR');
+            
+            // Projetos por estágio
+            updateProjectFlow('dashboard');
+        }
+
+        // Projetos
+        function loadProjects() {
+            updateProjectFlow('projects');
+            updateProjectSelects();
+        }
+
+        function updateProjectFlow(context) {
+            const stages = ['inscricao', 'captacao', 'execucao', 'prestacao'];
+            
+            stages.forEach(stage => {
+                const containerId = context === 'dashboard' ? `${stage}-projects` : `${stage}-list`;
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                
+                container.innerHTML = '';
+                
+                const stageProjects = projects.filter(p => p.status === stage);
+                
+                if (stageProjects.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; color: #a0aec0; padding: 20px;">Nenhum projeto</div>';
+                    return;
+                }
+                
+                stageProjects.forEach(project => {
+                    const projectDiv = document.createElement('div');
+                    projectDiv.className = 'project-item';
+                    projectDiv.innerHTML = `
+                        <div class="project-name">${project.name}</div>
+                        <div class="project-date">R$ ${project.value.toLocaleString('pt-BR')}</div>
+                        <div class="project-date">${new Date(project.startDate).toLocaleDateString('pt-BR')}</div>
+                        ${context === 'projects' ? `
+                            <div style="margin-top: 10px;">
+                                ${stage !== 'prestacao' ? `<button class="btn btn-success" style="padding: 5px 10px; font-size: 12px;" onclick="moveProject(${project.id}, '${getNextStage(stage)}')">Avançar</button>` : ''}
+                                <button class="btn btn-warning" style="padding: 5px 10px; font-size: 12px; margin-left: 5px;" onclick="editProject(${project.id})">Editar</button>
+                            </div>
+                        ` : ''}
+                    `;
+                    container.appendChild(projectDiv);
+                });
+            });
+        }
+
+        function getNextStage(currentStage) {
+            const stages = ['inscricao', 'captacao', 'execucao', 'prestacao'];
+            const currentIndex = stages.indexOf(currentStage);
+            return currentIndex < stages.length - 1 ? stages[currentIndex + 1] : currentStage;
+        }
+
+        function moveProject(projectId, newStatus) {
+            const project = projects.find(p => p.id === projectId);
+            if (project) {
+                project.status = newStatus;
+                
+                const stageNames = {
+                    'captacao': 'Captação/Aprovação',
+                    'execucao': 'Execução', 
+                    'prestacao': 'Prestação de Contas'
+                };
+                
+                alert(`Projeto "${project.name}" movido para ${stageNames[newStatus]}!`);
+                loadProjects();
+                loadDashboard();
+            }
+        }
+
+        // Custos
+        function loadCosts() {
+            const tbody = document.getElementById('costsTable');
+            tbody.innerHTML = '';
+            
+            costs.forEach(cost => {
+                const project = projects.find(p => p.id === cost.projectId);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${project ? project.name : 'Projeto não encontrado'}</td>
+                    <td>${cost.description}</td>
+                    <td>R$ ${cost.value.toLocaleString('pt-BR')}</td>
+                    <td><span class="status status-${cost.status === 'pago' ? 'paid' : 'pending'}">${cost.status === 'pago' ? 'Pago' : 'Pendente'}</span></td>
+                    <td>${cost.invoice || '-'}</td>
+                    <td>
+                        <button class="btn btn-warning" style="padding: 5px 10px; font-size: 12px;" onclick="toggleCostStatus(${cost.id})">Alterar Status</button>
+                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px; margin-left: 5px;" onclick="deleteCost(${cost.id})">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Cronograma
+        function loadSchedule() {
+            const tbody = document.getElementById('scheduleTable');
+            tbody.innerHTML = '';
+            
+            schedule.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(item => {
+                const project = projects.find(p => p.id === item.projectId);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${new Date(item.date).toLocaleDateString('pt-BR')}</td>
+                    <td>${project ? project.name : 'Projeto não encontrado'}</td>
+                    <td>${item.activity}</td>
+                    <td>${item.responsible}</td>
+                    <td><span class="status status-${item.status === 'concluido' ? 'paid' : 'pending'}">${item.status === 'concluido' ? 'Concluído' : item.status === 'em-andamento' ? 'Em Andamento' : 'Pendente'}</span></td>
+                    <td>
+                        <button class="btn btn-warning" style="padding: 5px 10px; font-size: 12px;" onclick="toggleActivityStatus(${item.id})">Alterar Status</button>
+                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px; margin-left: 5px;" onclick="deleteActivity(${item.id})">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Financeiro
+        function loadFinancial() {
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+            
+            // Receita do mês
+            const monthlyRev = revenues.filter(r => {
+                const revDate = new Date(r.date);
+                return revDate.getMonth() === currentMonth && revDate.getFullYear() === currentYear && r.status === 'recebido';
+            }).reduce((sum, r) => sum + r.value, 0);
+            
+            document.getElementById('monthlyRevenue').textContent = 'R$ ' + monthlyRev.toLocaleString('pt-BR');
+            
+            // Receita anual
+            const yearlyRev = revenues.filter(r => {
+                const revDate = new Date(r.date);
+                return revDate.getFullYear() === currentYear && r.status === 'recebido';
+            }).reduce((sum, r) => sum + r.value, 0);
+            
+            document.getElementById('yearlyRevenue').textContent = 'R$ ' + yearlyRev.toLocaleString('pt-BR');
+            
+            // A receber
+            const pendingRev = revenues.filter(r => r.status === 'a-receber').reduce((sum, r) => sum + r.value, 0);
+            document.getElementById('pendingRevenue').textContent = 'R$ ' + pendingRev.toLocaleString('pt-BR');
+            
+            // Tabela de receitas
+            const tbody = document.getElementById('revenueTable');
+            tbody.innerHTML = '';
+            
+            revenues.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(revenue => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${new Date(revenue.date).toLocaleDateString('pt-BR')}</td>
+                    <td>${revenue.client}</td>
+                    <td>${revenue.service}</td>
+                    <td>R$ ${revenue.value.toLocaleString('pt-BR')}</td>
+                    <td><span class="status status-${revenue.status === 'recebido' ? 'paid' : 'pending'}">${revenue.status === 'recebido' ? 'Recebido' : 'A Receber'}</span></td>
+                    <td>
+                        <button class="btn btn-warning" style="padding: 5px 10px; font-size: 12px;" onclick="toggleRevenueStatus(${revenue.id})">Alterar Status</button>
+                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px; margin-left: 5px;" onclick="deleteRevenue(${revenue.id})">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Modais
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            updateProjectSelects();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function updateProjectSelects() {
+            const selects = ['costProject', 'activityProject'];
+            selects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                if (select) {
+                    select.innerHTML = '<option value="">Selecione um projeto</option>';
+                    projects.forEach(project => {
+                        const option = document.createElement('option');
+                        option.value = project.id;
+                        option.textContent = project.name;
+                        select.appendChild(option);
+                    });
+                }
+            });
+        }
+
+        // Formulários
+        document.getElementById('projectForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newProject = {
+                id: projects.length > 0 ? Math.max(...projects.map(p => p.id)) + 1 : 1,
+                name: document.getElementById('projectName').value,
+                client: document.getElementById('projectClient').value,
+                value: parseFloat(document.getElementById('projectValue').value),
+                status: 'inscricao',
+                startDate: document.getElementById('projectStartDate').value,
+                description: document.getElementById('projectDescription').value,
+                createdAt: new Date().toISOString()
+            };
+            
+            projects.push(newProject);
+            closeModal('projectModal');
+            this.reset();
+            loadProjects();
+            loadDashboard();
+            alert('Projeto adicionado com sucesso!');
+        });
+
+        document.getElementById('costForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newCost = {
+                id: costs.length > 0 ? Math.max(...costs.map(c => c.id)) + 1 : 1,
+                projectId: parseInt(document.getElementById('costProject').value),
+                description: document.getElementById('costDescription').value,
+                value: parseFloat(document.getElementById('costValue').value),
+                status: document.getElementById('costStatus').value,
+                invoice: document.getElementById('costInvoice').value,
+                createdAt: new Date().toISOString()
+            };
+            
+            costs.push(newCost);
+            closeModal('costModal');
+            this.reset();
+            loadCosts();
+            loadDashboard();
+            alert('Despesa adicionada com sucesso!');
+        });
+
+        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newActivity = {
+                id: schedule.length > 0 ? Math.max(...schedule.map(s => s.id)) + 1 : 1,
+                projectId: parseInt(document.getElementById('activityProject').value),
+                date: document.getElementById('activityDate').value,
+                activity: document.getElementById('activityDescription').value,
+                responsible: document.getElementById('activityResponsible').value,
+                status: document.getElementById('activityStatus').value,
+                createdAt: new Date().toISOString()
+            };
+            
+            schedule.push(newActivity);
+            closeModal('scheduleModal');
+            this.reset();
+            loadSchedule();
+            alert('Atividade adicionada com sucesso!');
+        });
+
+        document.getElementById('revenueForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newRevenue = {
+                id: revenues.length > 0 ? Math.max(...revenues.map(r => r.id)) + 1 : 1,
+                date: document.getElementById('revenueDate').value,
+                client: document.getElementById('revenueClient').value,
+                service: document.getElementById('revenueService').value,
+                value: parseFloat(document.getElementById('revenueValue').value),
+                status: document.getElementById('revenueStatus').value,
+                createdAt: new Date().toISOString()
+            };
+            
+            revenues.push(newRevenue);
+            closeModal('revenueModal');
+            this.reset();
+            loadFinancial();
+            loadDashboard();
+            alert('Receita adicionada com sucesso!');
+        });
+
+        // Funções de alteração e exclusão
+        function editProject(id) {
+            alert('Para editar um projeto, clique em "Nova Projeto" e crie uma versão atualizada. Em breve teremos edição direta!');
+        }
+
+        function toggleCostStatus(id) {
+            const cost = costs.find(c => c.id === id);
+            if (cost) {
+                cost.status = cost.status === 'pago' ? 'pendente' : 'pago';
+                loadCosts();
+                loadDashboard();
+                alert(`Status alterado para: ${cost.status === 'pago' ? 'Pago' : 'Pendente'}`);
+            }
+        }
+
+        function deleteCost(id) {
+            if (confirm('Tem certeza que deseja excluir esta despesa?')) {
+                costs = costs.filter(c => c.id !== id);
+                loadCosts();
+                loadDashboard();
+                alert('Despesa excluída com sucesso!');
+            }
+        }
+
+        function toggleActivityStatus(id) {
+            const activity = schedule.find(s => s.id === id);
+            if (activity) {
+                const statusOptions = ['pendente', 'em-andamento', 'concluido'];
+                const currentIndex = statusOptions.indexOf(activity.status);
+                const nextIndex = (currentIndex + 1) % statusOptions.length;
+                activity.status = statusOptions[nextIndex];
+                loadSchedule();
+                alert(`Status alterado para: ${activity.status}`);
+            }
+        }
+
+        function deleteActivity(id) {
+            if (confirm('Tem certeza que deseja excluir esta atividade?')) {
+                schedule = schedule.filter(s => s.id !== id);
+                loadSchedule();
+                alert('Atividade excluída com sucesso!');
+            }
+        }
+
+        function toggleRevenueStatus(id) {
+            const revenue = revenues.find(r => r.id === id);
+            if (revenue) {
+                revenue.status = revenue.status === 'recebido' ? 'a-receber' : 'recebido';
+                loadFinancial();
+                loadDashboard();
+                alert(`Status alterado para: ${revenue.status === 'recebido' ? 'Recebido' : 'A Receber'}`);
+            }
+        }
+
+        function deleteRevenue(id) {
+            if (confirm('Tem certeza que deseja excluir esta receita?')) {
+                revenues = revenues.filter(r => r.id !== id);
+                loadFinancial();
+                loadDashboard();
+                alert('Receita excluída com sucesso!');
+            }
+        }
+
+        // Fechar modal clicando fora dele
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboard();
+        });
+    </script>
+</body>
+</html>
