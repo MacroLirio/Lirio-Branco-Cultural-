@@ -1,17 +1,10 @@
-// Cole aqui seu config do Firebase (Console > Configurações do projeto > Apps > Web).
-// Exemplo de estrutura (substitua pelos seus valores):
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzSyXXXXXXX",
+  apiKey: "AIzaSyBAEo4byMMQCgfn0SMSbbRV48EfwYM3d_4",
   authDomain: "sistema-lirio-branco.firebaseapp.com",
   projectId: "sistema-lirio-branco",
-  storageBucket: "sistema-lirio-branco.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef123456",
-  measurementId: "G-XXXXXXX"
+  storageBucket: "sistema-lirio-branco.firebasestorage.app",
+  messagingSenderId: "137857061244",
+  appId: "1:137857061244:web:704b4792acb662a53a54f9",
+  measurementId: "G-M972BJ7DRT"
 };
-
-
-// Inicialização
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
