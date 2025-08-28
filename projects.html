@@ -20,16 +20,45 @@
   <main class="container">
     <div class="card">
       <h1>Seus Projetos</h1>
-      <button id="newProjectBtn">Novo Projeto</button>
+      <p class="small">Crie um projeto e clique em “Abrir” para editar as páginas internas (Atividades, Cronograma, Locais e Financeiro*).</p>
+      <p class="small"><strong>*Financeiro</strong> aparece apenas para administradores.</p>
     </div>
 
-    <div id="projectsList" class="row">
-      <!-- Lista de projetos será carregada aqui -->
+    <div class="card">
+      <h2>Novo Projeto</h2>
+      <form id="newProjectForm">
+        <div class="row">
+          <div>
+            <label>Nome</label>
+            <input id="projectName" placeholder="Ex.: A Tradição de São João" required>
+          </div>
+          <div>
+            <label>Cliente (opcional)</label>
+            <input id="projectClient" placeholder="Ex.: Aldair">
+          </div>
+        </div>
+        <label>Descrição</label>
+        <textarea id="projectDesc" rows="3" placeholder="Resumo do projeto"></textarea>
+        <button type="submit">Criar projeto</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Meus Projetos</h2>
+      <table class="table" id="projectsTable">
+        <thead>
+          <tr><th>Nome</th><th>Cliente</th><th>Criado em</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
   </main>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore-compat.js"></script>
   <script src="./firebase-init.js"></script>
-  <script src="./app-auth.js"></script>
-  <script src="./app-projects.js"></script>
+  <script src="./projects.js"></script>
 </body>
 </html>
