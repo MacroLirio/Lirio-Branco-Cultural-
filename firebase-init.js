@@ -5,7 +5,7 @@ const firebaseConfig = {
   authDomain:"sistema-lirio-branco.firebaseapp.com",
   projectId: "sistema-lirio-branco",
   storageBucket: "sistema-lirio-branco.firebasestorage.app",
-  messagingSenderId: "COLE_AQUI_SEU_SENDER_ID",
+  messagingSenderId: "137857061244",
   appId: "1:137857061244:web:704b4792acb662a53a54f9",
   measurementId: "G-M972BJ7DRT"
 };
