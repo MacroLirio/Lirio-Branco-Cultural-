@@ -19,28 +19,22 @@
 
   <main class="container">
     <div class="card">
-      <h1 id="projectName">Nome do Projeto</h1>
-      <p id="projectClient"></p>
-      <p id="projectDescription"></p>
-    </div>
-
-    <div class="card">
-      <h2>Abas</h2>
       <div class="tabs">
-        <button class="tab active" data-tab="general">Geral</button>
-        <button class="tab" data-tab="activities">Atividades</button>
-        <button class="tab" data-tab="schedule">Cronograma</button>
-        <button class="tab" data-tab="locations">Locais</button>
-        <button class="tab admin-only" data-tab="finance">Financeiro (admin)</button>
+        <button class="tab active" data-tab="geral">Geral</button>
+        <button class="tab" data-tab="atividades">Atividades</button>
+        <button class="tab" data-tab="cronograma">Cronograma</button>
+        <button class="tab" data-tab="locais">Locais</button>
+        <button class="tab admin-only" id="financeTab" data-tab="financeiro">Financeiro (admin)</button>
       </div>
-      <div id="tabContent">
-        <!-- Conteúdo das abas -->
-      </div>
+      <div id="tabContent"></div>
     </div>
   </main>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore-compat.js"></script>
   <script src="./firebase-init.js"></script>
-  <script src="./app-auth.js"></script>
-  <script src="./app-project.js"></script>
+  <script src="./project.js"></script>
 </body>
 </html>
