@@ -1,27 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lírio Branco Cultural • Projeto</title>
+  <title>Projeto • Lírio Branco Cultural</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <header class="header">
-    <div class="brand">Lírio Branco Cultural • Projeto</div>
+    <div class="brand">Projeto • <span id="projTitle">Carregando…</span></div>
     <nav>
       <a href="./projects.html">Projetos</a>
+      <a href="#" id="logoutLink">Sair</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="card">
-      <div class="tabs">
-        <button class="tab active" data-tab="geral">Geral</button>
-        <button class="tab" data-tab="atividades">Atividades</button>
-        <button class="tab" data-tab="cronograma">Cronograma</button>
-        <button class="tab" data-tab="locais">Locais</button>
-        <button class="tab admin-only" id="financeTab" data-tab="financeiro">Financeiro (admin)</button>
+      <div class="navtabs">
+        <a href="#geral" class="active" data-tab>Geral</a>
+        <a href="#atividades" data-tab>Atividades</a>
+        <a href="#cronograma" data-tab>Cronograma</a>
+        <a href="#locais" data-tab>Locais</a>
+        <a href="#financeiro" id="financeTab" class="hidden" data-tab>Financeiro (admin)</a>
       </div>
       <div id="tabContent"></div>
     </div>
