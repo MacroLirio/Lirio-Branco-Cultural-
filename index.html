@@ -8,10 +8,7 @@
 </head>
 <body>
   <header class="header">
-    <div class="brand">
-      <img src="logo.png" alt="Lírio Branco Cultural" style="height:40px; vertical-align:middle; margin-right:8px;">
-      Lírio Branco Cultural • Painel
-    </div>
+    <div class="brand">Lírio Branco Cultural • Painel</div>
     <nav>
       <a href="./projects.html">Projetos</a>
     </nav>
@@ -26,33 +23,28 @@
     <div class="row">
       <div class="card">
         <h2>Entrar</h2>
-        <form id="loginForm">
-          <label>E-mail</label>
-          <input type="email" id="loginEmail" placeholder="voce@exemplo.com" required>
-          <label>Senha</label>
-          <input type="password" id="loginPassword" placeholder="Sua senha" required>
-          <button type="submit">Entrar</button>
-        </form>
+        <label>E-mail</label>
+        <input type="email" id="loginEmail" placeholder="voce@exemplo.com">
+        <label>Senha</label>
+        <input type="password" id="loginPassword" placeholder="Sua senha">
+        <button id="loginBtn">Entrar</button>
       </div>
 
       <div class="card">
         <h2>Criar conta</h2>
-        <form id="signupForm">
-          <label>E-mail</label>
-          <input type="email" id="signupEmail" required>
-          <label>Senha (mín. 6 caracteres)</label>
-          <input type="password" id="signupPassword" minlength="6" required>
-          <button type="submit">Criar conta</button>
-        </form>
+        <label>E-mail</label>
+        <input type="email" id="registerEmail" placeholder="voce@exemplo.com">
+        <label>Senha (mín. 6 caracteres)</label>
+        <input type="password" id="registerPassword" placeholder="Sua senha">
+        <button id="registerBtn">Criar conta</button>
       </div>
     </div>
   </main>
 
-  <!-- Firebase SDKs (compat) -->
+  <!-- Firebase (compat) + seus scripts -->
   <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore-compat.js"></script>
-  <!-- Sua config e lógica -->
   <script src="./firebase-init.js"></script>
   <script src="./app-auth.js"></script>
 </body>
